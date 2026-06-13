@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-cormorant);
+
+  --color-canvas: #f5f0e6;
+  --color-ink: #1c1714;
+  --color-stone: #9c8a7b;
+  --color-sand: #c8b49a;
+  --color-linen: #eae0d0;
+
+  /* Single source of truth for page gutters — use as px-gutter etc. */
+  --spacing-gutter: clamp(1.25rem, 5vw, 5rem);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Shared easing curves — mirror the GSAP "expo" eases used in JS. */
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-expo-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+html {
+  background-color: #f5f0e6;
+  color: #1c1714;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ── Lenis smooth scroll ─────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* GSAP reveal helper: keep [data-fade]/SplitText content from flashing
+   un-animated before JS runs, but only when motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-fade] {
+    will-change: transform, opacity;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
 }
