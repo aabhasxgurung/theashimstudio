@@ -17,15 +17,42 @@ const lineReveal = {
 export function Hero() {
   return (
     <section
-      className="min-h-dvh flex flex-col bg-canvas px-gutter pb-gutter pt-32 md:pt-36"
+      className="relative min-h-dvh flex flex-col justify-end overflow-hidden bg-ink px-gutter pb-gutter pt-32"
       aria-label="Hero"
     >
+      {/* ── Background image (full-bleed) ─────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: EASE, delay: 0.2 }}
+        className="absolute inset-0 z-0"
+      >
+        <motion.div
+          initial={{ scale: 1.12 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.8, ease: EASE, delay: 0.2 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src="/home/hero.jpg"
+            alt="Inside The Ashim Salon"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </motion.div>
+
+        {/* Legibility gradient — darker toward the bottom where the text sits */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/30 to-black/35" />
+      </motion.div>
+
       {/* ── Meta row ─────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: EASE, delay: 1 }}
-        className="flex justify-between text-stone text-[0.65rem] tracking-[0.22em] uppercase"
+        transition={{ duration: 1, ease: EASE, delay: 0.9 }}
+        className="absolute top-28 left-0 right-0 z-10 px-gutter flex justify-between text-canvas/70 text-[0.65rem] tracking-[0.22em] uppercase"
       >
         <span>Fine hair &amp; beauty arts</span>
         <span className="hidden md:block">Dharan, Nepal</span>
@@ -33,9 +60,9 @@ export function Hero() {
       </motion.div>
 
       {/* ── Headline + intro ─────────────────────── */}
-      <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-10">
         <h1
-          className="font-display font-light text-ink leading-[0.92] tracking-[-0.015em]"
+          className="font-display font-light text-canvas leading-[0.92] tracking-[-0.015em]"
           style={{ fontSize: "clamp(3.25rem, 11vw, 10.5rem)" }}
         >
           <span className="block overflow-hidden">
@@ -55,7 +82,7 @@ export function Hero() {
               variants={lineReveal}
               initial="hidden"
               animate="visible"
-              className="block italic text-stone md:ml-[12vw]"
+              className="block italic text-sand md:ml-[12vw]"
             >
               Salon
             </motion.span>
@@ -68,15 +95,15 @@ export function Hero() {
           transition={{ duration: 1, ease: EASE, delay: 0.8 }}
           className="md:max-w-[17rem] md:pb-3 shrink-0"
         >
-          <p className="text-ink/70 text-sm leading-relaxed">
+          <p className="text-canvas/80 text-sm leading-relaxed">
             Where every strand tells your story. A private studio for considered
             hair, in the heart of Dharan.
           </p>
           <Link
             href="/book"
-            className="group mt-6 inline-flex items-baseline gap-2 text-ink text-[0.68rem] tracking-[0.22em] uppercase"
+            className="group mt-6 inline-flex items-baseline gap-2 text-canvas text-[0.68rem] tracking-[0.22em] uppercase"
           >
-            <span className="border-b border-ink/30 pb-1 transition-colors duration-300 group-hover:border-ink">
+            <span className="border-b border-canvas/40 pb-1 transition-colors duration-300 group-hover:border-canvas">
               Book an appointment
             </span>
             <span
@@ -88,30 +115,6 @@ export function Hero() {
           </Link>
         </motion.div>
       </div>
-
-      {/* ── Image — swap public/home/bg.jpg for your own ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: EASE, delay: 0.45 }}
-        className="relative flex-1 min-h-[44vh] md:min-h-[52vh] mt-10 md:mt-14 overflow-hidden bg-linen"
-      >
-        <motion.div
-          initial={{ scale: 1.12 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease: EASE, delay: 0.45 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src="/home/bg.jpg"
-            alt="Inside The Ashim Salon"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

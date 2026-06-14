@@ -11,9 +11,9 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Barbers />
         <About />
         <Services />
-        <Barbers />
         <BookingFooter />
       </main>
     </>
