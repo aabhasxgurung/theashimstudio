@@ -7,38 +7,61 @@ import { useLenis } from "lenis/react";
 
 const LINKS = [
   { num: "01", label: "Services", href: "/services" },
-  { num: "02", label: "Gallery",  href: "/gallery"  },
-  { num: "03", label: "About",    href: "/about"    },
-  { num: "04", label: "Book",     href: "/book"     },
+  { num: "02", label: "Gallery", href: "/gallery" },
+  { num: "03", label: "About", href: "/about" },
+  { num: "04", label: "Book", href: "/book" },
 ];
 
-const EASE_EXPO_OUT:    [number, number, number, number] = [0.23, 1, 0.32, 1];
+const EASE_EXPO_OUT: [number, number, number, number] = [0.23, 1, 0.32, 1];
 const EASE_EXPO_IN_OUT: [number, number, number, number] = [0.77, 0, 0.175, 1];
 
 const overlayVariants: Variants = {
   closed: { clipPath: "inset(0 0 100% 0)" },
-  open:   { clipPath: "inset(0 0 0% 0)",   transition: { duration: 0.88, ease: EASE_EXPO_IN_OUT } },
-  exit:   { clipPath: "inset(0 0 100% 0)",  transition: { duration: 0.68, ease: EASE_EXPO_IN_OUT } },
+  open: {
+    clipPath: "inset(0 0 0% 0)",
+    transition: { duration: 0.88, ease: EASE_EXPO_IN_OUT },
+  },
+  exit: {
+    clipPath: "inset(0 0 100% 0)",
+    transition: { duration: 0.68, ease: EASE_EXPO_IN_OUT },
+  },
 };
 
 const navListVariants: Variants = {
   closed: {},
-  open:   { transition: { staggerChildren: 0.08, delayChildren: 0.26 } },
+  open: { transition: { staggerChildren: 0.08, delayChildren: 0.26 } },
 };
 
 const navItemVariants: Variants = {
   closed: { y: 32, opacity: 0 },
-  open:   { y: 0,  opacity: 1, transition: { duration: 0.55, ease: EASE_EXPO_OUT } },
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.55, ease: EASE_EXPO_OUT },
+  },
 };
 
 const footerVariants: Variants = {
   closed: { opacity: 0 },
-  open:   { opacity: 1, transition: { duration: 0.5, ease: EASE_EXPO_OUT, delay: 0.72 } },
+  open: {
+    opacity: 1,
+    transition: { duration: 0.5, ease: EASE_EXPO_OUT, delay: 0.72 },
+  },
 };
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const lenis = useLenis();
+
+  // Transparent over the hero, solid once we scroll into the light sections.
+  useEffect(() => {
+    const onScroll = () =>
+      setScrolled(window.scrollY > window.innerHeight * 0.85);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Lock the virtualised Lenis scroll while the overlay is open. `overflow:
   // hidden` alone can't stop Lenis, so we also call stop()/start().
@@ -46,24 +69,30 @@ export function Navbar() {
     document.body.style.overflow = open ? "hidden" : "";
     if (open) lenis?.stop();
     else lenis?.start();
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open, lenis]);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const barColor = open ? "#F5F0E6" : "#1C1714";
-  const logoColor = open ? "#F5F0E6" : "#1C1714";
+  // Light content while the menu is open or while sitting over the dark hero.
+  const lightContent = open || !scrolled;
+  const barColor = lightContent ? "#F5F0E6" : "#1C1714";
+  const logoColor = barColor;
 
   return (
     <>
       {/* ── Top bar ─────────────────────────────────── */}
       <nav
         className={`fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-gutter py-6 transition-colors duration-300 ${
-          open ? "bg-transparent" : "bg-canvas/85 backdrop-blur-md"
+          open || !scrolled ? "bg-transparent" : "bg-canvas/85 backdrop-blur-md"
         }`}
       >
         <Link href="/" onClick={() => setOpen(false)}>
@@ -85,37 +114,37 @@ export function Navbar() {
           {/* Top bar */}
           <motion.span
             animate={{
-              rotate:          open ? -45 : 0,
-              y:               open ?   7 : 0,
-              width:           open ? "1.5rem" : "2rem",
+              rotate: open ? -45 : 0,
+              y: open ? 7 : 0,
+              width: open ? "1.5rem" : "2rem",
               backgroundColor: barColor,
             }}
             transition={{ duration: 0.42, ease: EASE_EXPO_IN_OUT }}
             className="block h-px"
-            style={{ backgroundColor: "#1C1714" }}
+            style={{ backgroundColor: barColor }}
           />
           {/* Mid bar */}
           <motion.span
             animate={{
-              opacity:         open ? 0 : 1,
-              scaleX:          open ? 0 : 1,
+              opacity: open ? 0 : 1,
+              scaleX: open ? 0 : 1,
               backgroundColor: barColor,
             }}
             transition={{ duration: 0.28, ease: EASE_EXPO_OUT }}
             className="block h-px w-[1.4rem]"
-            style={{ backgroundColor: "#1C1714" }}
+            style={{ backgroundColor: barColor }}
           />
           {/* Bottom bar */}
           <motion.span
             animate={{
-              rotate:          open ? 45 : 0,
-              y:               open ? -7 : 0,
-              width:           open ? "1.5rem" : "0.875rem",
+              rotate: open ? 45 : 0,
+              y: open ? -7 : 0,
+              width: open ? "1.5rem" : "0.875rem",
               backgroundColor: barColor,
             }}
             transition={{ duration: 0.42, ease: EASE_EXPO_IN_OUT }}
             className="block h-px"
-            style={{ backgroundColor: "#1C1714" }}
+            style={{ backgroundColor: barColor }}
           />
         </button>
       </nav>
@@ -134,7 +163,11 @@ export function Navbar() {
             aria-modal="true"
           >
             {/* Links */}
-            <motion.nav variants={navListVariants} initial="closed" animate="open">
+            <motion.nav
+              variants={navListVariants}
+              initial="closed"
+              animate="open"
+            >
               {LINKS.map(({ num, label, href }) => (
                 <motion.div key={num} variants={navItemVariants}>
                   <Link
