@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -20,7 +19,7 @@ export function Hero() {
       className="relative min-h-dvh flex flex-col justify-end overflow-hidden bg-ink px-gutter pb-gutter pt-32"
       aria-label="Hero"
     >
-      {/* ── Background image (full-bleed) ─────────── */}
+      {/* ── Background video (full-bleed) ─────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -33,14 +32,18 @@ export function Hero() {
           transition={{ duration: 1.8, ease: EASE, delay: 0.2 }}
           className="absolute inset-0"
         >
-          <Image
-            src="/home/hero.jpg"
-            alt="Inside The Ashim Salon"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster="/home/hero.jpg"
+            aria-label="Inside The Ashim Salon"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          >
+            <source src="/home/hero.mp4" type="video/mp4" />
+          </video>
         </motion.div>
 
         {/* Legibility gradient — darker toward the bottom where the text sits */}

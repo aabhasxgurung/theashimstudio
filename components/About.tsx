@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
 
@@ -110,22 +111,21 @@ export function About() {
         {/* Body + link */}
         <div className="md:col-span-5 md:pt-3 flex flex-col gap-6">
           <p className="text-ink/70 text-[0.95rem] leading-relaxed" data-fade>
-            The Ashim Studio is a single room in the heart of Dharan, run on
-            patience and a small, devoted team. We take a handful of guests a
-            day — never more — so that every cut, colour and conversation has
-            the time it deserves.
+            For over fifteen years, Ashim Salon has redefined beauty with
+            elegance and precision — blending artistry and expertise to craft
+            looks that inspire confidence and timeless style.
           </p>
           <p className="text-ink/70 text-[0.95rem] leading-relaxed" data-fade>
-            No rush, no script. Just considered hair, made for the way you
-            actually live.
+            It has never just been about a haircut. Step in, and step out
+            transformed.
           </p>
-          <a
-            href="#services"
+          <Link
+            href="/about"
             data-fade
             className="group mt-2 inline-flex items-baseline gap-2 text-ink text-[0.68rem] tracking-[0.22em] uppercase w-fit"
           >
             <span className="border-b border-ink/30 pb-1 transition-colors duration-300 group-hover:border-ink">
-              See what we do
+              Read our story
             </span>
             <span
               aria-hidden="true"
@@ -133,7 +133,7 @@ export function About() {
             >
               ↗
             </span>
-          </a>
+          </Link>
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
@@ -196,6 +197,21 @@ export function Services() {
           </li>
         ))}
       </ul>
+
+      <Link
+        href="/services"
+        className="group mt-12 md:mt-16 inline-flex items-baseline gap-2 text-ink text-[0.68rem] tracking-[0.22em] uppercase"
+      >
+        <span className="border-b border-ink/30 pb-1 transition-colors duration-300 group-hover:border-ink">
+          View the full menu &amp; pricing
+        </span>
+        <span
+          aria-hidden="true"
+          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        >
+          ↗
+        </span>
+      </Link>
     </section>
   );
 }

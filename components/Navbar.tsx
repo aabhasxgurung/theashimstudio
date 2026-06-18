@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useLenis } from "lenis/react";
 
@@ -53,6 +54,11 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const lenis = useLenis();
+  const pathname = usePathname();
+
+  // Only the home page opens over the dark hero; every other route starts on a
+  // light background, so the bar should read as "scrolled" from the top.
+  const isHome = pathname === "/";
 
   // Transparent over the hero, solid once we scroll into the light sections.
   useEffect(() => {
@@ -83,7 +89,7 @@ export function Navbar() {
   }, []);
 
   // Light content while the menu is open or while sitting over the dark hero.
-  const lightContent = open || !scrolled;
+  const lightContent = open || (isHome && !scrolled);
   const barColor = lightContent ? "#F5F0E6" : "#1C1714";
   const logoColor = barColor;
 
@@ -92,7 +98,9 @@ export function Navbar() {
       {/* ── Top bar ─────────────────────────────────── */}
       <nav
         className={`fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-gutter py-6 transition-colors duration-300 ${
-          open || !scrolled ? "bg-transparent" : "bg-canvas/85 backdrop-blur-md"
+          open || (isHome && !scrolled)
+            ? "bg-transparent"
+            : "bg-canvas/85 backdrop-blur-md"
         }`}
       >
         <Link href="/" onClick={() => setOpen(false)}>
