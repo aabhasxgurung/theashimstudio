@@ -46,24 +46,28 @@ export function Hero() {
           </video>
         </motion.div>
 
-        {/* Legibility gradient — darker toward the bottom where the text sits */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/30 to-black/35" />
-      </motion.div>
-
-      {/* ── Meta row ─────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: EASE, delay: 0.9 }}
-        className="absolute top-28 left-0 right-0 z-10 px-gutter flex justify-between text-canvas/70 text-[0.65rem] tracking-[0.22em] uppercase"
-      >
-        <span>Fine hair &amp; beauty arts</span>
-        <span className="hidden md:block">Dharan, Nepal</span>
-        <span>Est. 2024</span>
+        {/* Warm legibility wash: walnut shadow rising from the bottom where
+            the text sits, kept warm (not black) so the footage reads dusk. */}
+        <div className="absolute inset-0 bg-linear-to-t from-[#140c06]/85 via-[#140c06]/35 to-[#140c06]/30" />
+        {/* Golden-hour tint: a faint brass glow up top, the warm bulbs. */}
+        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(192,138,62,0.22),transparent_55%)] mix-blend-soft-light" />
       </motion.div>
 
       {/* ── Headline + intro ─────────────────────── */}
-      <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+      <div className="relative z-10">
+        {/* Eyebrow row — same shape as every other section's lead-in, so the
+            hero reads as part of the system, not a separate poster. */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, ease: EASE, delay: 0.9 }}
+          className="flex items-baseline justify-between border-b border-canvas/20 pb-5 mb-8 md:mb-12 text-[0.65rem] tracking-[0.22em] uppercase"
+        >
+          <span className="text-ochre">(Dharan, Nepal)</span>
+          <span className="text-canvas/55">Est. 2024</span>
+        </motion.div>
+
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
         <h1
           className="font-display font-light text-canvas leading-[0.92] tracking-[-0.015em]"
           style={{ fontSize: "clamp(3.25rem, 11vw, 10.5rem)" }}
@@ -85,7 +89,7 @@ export function Hero() {
               variants={lineReveal}
               initial="hidden"
               animate="visible"
-              className="block italic text-sand md:ml-[12vw]"
+              className="block italic text-ochre md:ml-[12vw]"
             >
               Salon
             </motion.span>
@@ -106,17 +110,18 @@ export function Hero() {
             href="/book"
             className="group mt-6 inline-flex items-baseline gap-2 text-canvas text-[0.68rem] tracking-[0.22em] uppercase"
           >
-            <span className="border-b border-canvas/40 pb-1 transition-colors duration-300 group-hover:border-canvas">
+            <span className="border-b border-ochre pb-1 text-ochre transition-colors duration-300 group-hover:text-canvas group-hover:border-canvas">
               Book an appointment
             </span>
             <span
               aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              className="text-ochre transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             >
               ↗
             </span>
           </Link>
         </motion.div>
+      </div>
       </div>
     </section>
   );

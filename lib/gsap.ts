@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 }
 
-// Easing curves shared with the CSS layer — keep these in sync with
+// Easing curves shared with the CSS layer; keep these in sync with
 // the custom-property values defined in globals.css.
 export const EASE_EXPO_OUT = "expo.out"; // cubic-bezier(0.16, 1, 0.3, 1)
 export const EASE_EXPO_IN_OUT = "expo.inOut"; // cubic-bezier(0.77, 0, 0.175, 1)

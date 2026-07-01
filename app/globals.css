@@ -2,27 +2,36 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-cormorant);
+  --font-display: var(--font-fraunces);
 
-  --color-canvas: #f5f0e6;
-  --color-ink: #1c1714;
-  --color-stone: #9c8a7b;
-  --color-sand: #c8b49a;
-  --color-linen: #eae0d0;
+  /* Terracotta & ochre, warm, sun-baked, inviting. Colour lives in big
+     blocks (clay sections, ochre accents), not just one stray word. The whole
+     scheme is centralised here, so it can be re-graded (olive / caramel) by
+     editing only these tokens. */
+  --color-canvas: #f1e4cf; /* warm cream, light sections */
+  --color-ink: #2a1a12; /* espresso brown, dark sections + body text */
+  --color-clay: #b5512f; /* terracotta, the lead colour, used in fields */
+  --color-clay-deep: #8f3c22; /* darker terracotta, hovers/shadows on clay */
+  --color-ochre: #d98a4e; /* warm ochre, accents, on dark grounds */
+  --color-olive: #7d8a5c; /* soft olive, small secondary accent */
+  --color-stone: #9c8472; /* warm taupe, muted labels on cream */
+  --color-sand: #e6d2ad; /* warm sand, alt light tone */
+  --color-linen: #e8d7bb; /* warm linen */
+  --color-brass: #c89a52; /* honey brass, highlight on dark only */
 
-  /* Single source of truth for page gutters — use as px-gutter etc. */
+  /* Single source of truth for page gutters; use as px-gutter etc. */
   --spacing-gutter: clamp(1.25rem, 5vw, 5rem);
 }
 
 :root {
-  /* Shared easing curves — mirror the GSAP "expo" eases used in JS. */
+  /* Shared easing curves; mirror the GSAP "expo" eases used in JS. */
   --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-expo-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 html {
-  background-color: #f5f0e6;
-  color: #1c1714;
+  background-color: #f1e4cf;
+  color: #2a1a12;
 }
 
 body {

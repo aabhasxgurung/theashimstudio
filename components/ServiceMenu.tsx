@@ -68,7 +68,7 @@ export function ServiceMenu() {
         className="px-gutter pt-40 pb-20 md:pt-52 md:pb-28"
       >
         <div className="flex items-baseline justify-between" data-fade>
-          <span className="text-stone text-[0.65rem] tracking-[0.22em] uppercase">
+          <span className="text-clay text-[0.65rem] tracking-[0.22em] uppercase">
             (What we do)
           </span>
           <span className="text-stone text-[0.65rem] tracking-[0.22em] uppercase">
@@ -82,7 +82,7 @@ export function ServiceMenu() {
           className="mt-10 md:mt-16 font-display font-light text-ink tracking-[-0.015em]"
           style={{ fontSize: "clamp(2.75rem, 9vw, 8rem)" }}
         >
-          The craft, <span className="italic text-stone">priced plainly.</span>
+          The craft, <span className="italic text-clay">priced plainly.</span>
         </h1>
 
         <div className="mt-12 md:mt-20 grid md:grid-cols-12 gap-10 md:gap-16">
@@ -92,7 +92,7 @@ export function ServiceMenu() {
             data-fade
           >
             Every cut, colour and treatment we offer, listed in full and priced
-            plainly in Nepalese rupees. No hidden extras — just the work, and
+            plainly in Nepalese rupees. No hidden extras, just the work, and
             what it costs.
           </p>
         </div>

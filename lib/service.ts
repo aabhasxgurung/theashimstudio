@@ -1,4 +1,4 @@
-// The Ashim Salon — service menu
+// The Ashim Salon service menu
 // Prices in NPR. `price` is the numeric base; `priceLabel` is the display string
 // and is the source of truth where a service has dual/range pricing.
 

@@ -1,9 +1,11 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { About } from "@/components/About";
+import { Ethos } from "@/components/Ethos";
+import { StatsBand } from "@/components/StatsBand";
+import { Gallery } from "@/components/Gallery";
 import { Services } from "@/components/Services";
 import { Barbers } from "@/components/Barbers";
-import { BookingFooter } from "@/components/BookingFooter";
+import { Appointments } from "@/components/Appointments";
 
 export default function Home() {
   return (
@@ -11,10 +13,12 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Barbers />
-        <About />
+        <Ethos />
+        <StatsBand />
+        <Gallery />
         <Services />
-        <BookingFooter />
+        <Barbers />
+        <Appointments />
       </main>
     </>
   );

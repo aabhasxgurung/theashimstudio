@@ -1,20 +1,24 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
+// NOTE: contact details below are still placeholders; swap in the studio's
+// real number/handles before launch.
 const CONTACT = [
   { label: "Visit", lines: ["Putali Line, Dharan-08", "Sunsari, Nepal"] },
   { label: "Hours", lines: ["Tue – Sun · 10–7", "Mon · by appointment"] },
-  { label: "Reach", lines: ["+977 980-000-0000", "hello@theashim.studio"] },
+  { label: "Reach", lines: ["+977 25-531234", "hello@theashim.studio"] },
 ];
 
 const SOCIALS = ["Instagram", "Facebook", "TikTok"];
 
-export function BookingFooter() {
+export function Appointments() {
   const root = useRef<HTMLElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const wordmark = useRef<HTMLDivElement>(null);
+  const imageInner = useRef<HTMLDivElement>(null);
   const [sent, setSent] = useState(false);
 
   useGSAP(
@@ -25,7 +29,7 @@ export function BookingFooter() {
         const split = SplitText.create(heading.current, {
           type: "lines",
           mask: "lines",
-          linesClass: "leading-[0.95]",
+          linesClass: "leading-[0.98]",
         });
         gsap.from(split.lines, {
           yPercent: 110,
@@ -41,10 +45,31 @@ export function BookingFooter() {
           duration: 0.9,
           ease: "power3.out",
           stagger: 0.08,
-          scrollTrigger: { trigger: "[data-contact]", start: "top 80%" },
+          scrollTrigger: { trigger: "[data-split]", start: "top 75%" },
         });
 
-        // Oversized wordmark rises as the page bottoms out.
+        // Image clip reveal + slow parallax drift.
+        gsap.from("[data-img-wrap]", {
+          clipPath: "inset(100% 0% 0% 0%)",
+          duration: 1.4,
+          ease: "expo.out",
+          scrollTrigger: { trigger: "[data-img-wrap]", start: "top 88%" },
+        });
+        gsap.fromTo(
+          imageInner.current,
+          { yPercent: -6 },
+          {
+            yPercent: 6,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "[data-img-wrap]",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+
         gsap.from(wordmark.current, {
           yPercent: 30,
           autoAlpha: 0,
@@ -71,26 +96,55 @@ export function BookingFooter() {
           (Reserve your chair)
         </span>
         <span className="text-canvas/60 text-[0.65rem] tracking-[0.22em] uppercase">
-          04 / Appointments
+          05 / Appointments
         </span>
       </div>
 
-      <div className="mt-12 md:mt-20 grid md:grid-cols-12 gap-12 md:gap-16 items-end">
-        <h2
-          ref={heading}
-          id="book-heading"
-          className="md:col-span-7 font-display font-light tracking-[-0.02em]"
-          style={{ fontSize: "clamp(3rem, 11vw, 9rem)" }}
+      {/* Two-column split: a warm low-light frame on one side, the enquiry on
+          the other. */}
+      <div
+        data-split
+        className="mt-12 md:mt-20 grid md:grid-cols-12 gap-12 md:gap-16 items-stretch"
+      >
+        {/* Image column */}
+        <div
+          data-img-wrap
+          className="md:col-span-5 relative overflow-hidden bg-linen aspect-[4/5] md:aspect-auto md:min-h-[34rem]"
         >
-          Let&apos;s begin
-          <span className="italic text-ink"> your visit.</span>
-        </h2>
+          <div ref={imageInner} className="absolute inset-0 -top-[6%] h-[112%]">
+            <Image
+              src="/home/4.jpeg"
+              alt="A quiet evening inside The Ashim Studio"
+              fill
+              sizes="(max-width: 768px) 100vw, 42vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-[#1d150f]/25 mix-blend-multiply" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-ink/80 to-transparent" />
+          <span className="absolute bottom-5 left-5 text-canvas/80 text-[0.6rem] tracking-[0.22em] uppercase">
+            Dharan · by appointment
+          </span>
+        </div>
 
-        {/* Enquiry */}
-        <div className="md:col-span-5 md:pb-4">
-          <p className="text-canvas/60 text-[0.95rem] leading-relaxed" data-fade>
-            Tell us where to reach you. We&apos;ll follow up within a day to find
-            a time that suits.
+        {/* Enquiry column */}
+        <div className="md:col-span-7 flex flex-col justify-end">
+          <h2
+            ref={heading}
+            id="book-heading"
+            className="font-display font-light tracking-[-0.02em]"
+            style={{ fontSize: "clamp(2.75rem, 8vw, 6.5rem)" }}
+          >
+            Let&apos;s begin
+            <span className="italic text-ink"> your visit.</span>
+          </h2>
+
+          <p
+            className="mt-8 max-w-md text-canvas/60 text-[0.95rem] leading-relaxed"
+            data-fade
+          >
+            Leave your email and we&apos;ll follow up within a day to find a time
+            that suits.
           </p>
 
           <form
@@ -99,7 +153,7 @@ export function BookingFooter() {
               e.preventDefault();
               setSent(true);
             }}
-            className="group mt-8 relative flex items-center border-b border-canvas/25 focus-within:border-canvas transition-colors duration-300"
+            className="group mt-8 relative flex items-center max-w-md border-b border-canvas/25 focus-within:border-canvas transition-colors duration-300"
           >
             <input
               type="email"
@@ -127,35 +181,35 @@ export function BookingFooter() {
           </form>
 
           <a
-            href="tel:+9779800000000"
+            href="tel:+97725531234"
             data-fade
-            className="mt-6 inline-flex items-baseline gap-2 text-[0.68rem] tracking-[0.22em] uppercase text-canvas/70 hover:text-canvas transition-colors duration-300"
+            className="mt-6 inline-flex items-baseline gap-2 text-[0.68rem] tracking-[0.22em] uppercase text-canvas/70 hover:text-canvas transition-colors duration-300 w-fit"
           >
             or call the studio
           </a>
+
+          {/* Contact details, inline with the enquiry. */}
+          <dl
+            data-fade
+            className="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-6 border-t border-canvas/15 pt-8"
+          >
+            {CONTACT.map((c) => (
+              <div key={c.label}>
+                <dt className="text-canvas/70 text-[0.6rem] tracking-[0.22em] uppercase">
+                  {c.label}
+                </dt>
+                <dd className="mt-3 space-y-1">
+                  {c.lines.map((line) => (
+                    <p key={line} className="text-canvas/85 text-sm">
+                      {line}
+                    </p>
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
-
-      {/* Contact grid */}
-      <dl
-        data-contact
-        className="mt-20 md:mt-28 grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-6 border-t border-canvas/15 pt-12"
-      >
-        {CONTACT.map((c) => (
-          <div key={c.label} data-fade>
-            <dt className="text-canvas/70 text-[0.62rem] tracking-[0.22em] uppercase">
-              {c.label}
-            </dt>
-            <dd className="mt-3 space-y-1">
-              {c.lines.map((line) => (
-                <p key={line} className="text-canvas/85 text-sm">
-                  {line}
-                </p>
-              ))}
-            </dd>
-          </div>
-        ))}
-      </dl>
 
       {/* Oversized wordmark */}
       <div

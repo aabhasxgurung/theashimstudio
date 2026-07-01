@@ -13,7 +13,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<LenisRef>(null);
 
   useEffect(() => {
-    // One rAF loop for everything — GSAP ticker feeds Lenis. Read the instance
+    // One rAF loop for everything; GSAP ticker feeds Lenis. Read the instance
     // lazily each frame so the loop is robust to Lenis initialising a tick late
     // (bailing here once would freeze scrolling entirely with autoRaf: false).
     const update = (time: number) => {
